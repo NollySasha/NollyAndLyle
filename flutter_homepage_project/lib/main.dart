@@ -1,4 +1,7 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
+import 'carousel.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,8 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(
-        primarySwatch: Colors.teal),
+      theme: ThemeData(primarySwatch: Colors.teal),
       home: const MyHomePage(),
     );
   }
@@ -26,43 +28,86 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
-
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-      appBar: AppBar(
-   
-        title: const Text('Welcome'),
-      ),
-      body: Column(children: <Widget>[
-        Card(child: Image.asset('assets/home.jpg')),
-        const Padding(
-          padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
-          child: Text('How Vaccines Work', style: TextStyle(fontSize: 20.0)),
+        appBar: AppBar(
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(right: 30),
+              child: IconButton(
+                  onPressed: () {},
+                  icon: Icon(Icons.circle_notifications, size: 40)),
+            )
+          ],
+          title: const Text('Welcome'),
         ),
-         IntrinsicHeight(
-           child: Row(
-             crossAxisAlignment: CrossAxisAlignment.stretch,
-             children: <Widget>[
-            Expanded(child: Card(child: Image.asset('assets/play.png')),flex: 7),
-             Expanded(child: Container(
-               decoration: BoxDecoration(color: Colors.teal.shade100,borderRadius: BorderRadius.circular(10.0)),
-               child: Column(
-                 children: [
-                 const Text('Vaccine \nInformation \nGuide'),
-                 IconButton(
-                 icon: const Icon(Icons.article,size: 40.0),
-                 tooltip: 'Vaccine Information Guide',
-                 onPressed: (){},
-               )],
-               ) 
-             ),flex: 4)
-             ],
-           ),
-         )      
-      ])
-    );
+        body: Column(children: <Widget>[
+          Container(
+              width: 320,
+              height: 150,
+              child: Card(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0)),
+                  child: Image.asset('assets/home.jpg', fit: BoxFit.fitWidth))),
+          const Padding(
+            padding: EdgeInsets.only(top: 8.0, bottom: 8.0),
+            child: Text(
+              'How Vaccines Work',
+              style: TextStyle(fontSize: 15.0),
+              textAlign: TextAlign.left,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 10, right: 10),
+            child: Container(
+              width: 320,
+              height: 100,
+              child: IntrinsicHeight(
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    Expanded(
+                        child: Card(
+                            child: Image.asset('assets/play.png',
+                                fit: BoxFit.fitWidth)),
+                        flex: 7),
+                    Expanded(
+                        child: Container(
+                            decoration: BoxDecoration(
+                                color: Colors.teal.shade100,
+                                borderRadius: BorderRadius.circular(10.0)),
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: 10),
+                              child: Column(
+                                children: [
+                                  const Text('Vaccine \nInformation \nGuide',
+                                      textAlign: TextAlign.center),
+                                  IconButton(
+                                    icon: const Icon(Icons.article, size: 30.0),
+                                    onPressed: () {},
+                                  )
+                                ],
+                              ),
+                            )),
+                        flex: 4)
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Text("Fun Facts",
+              style: TextStyle(fontSize: 15.0), textAlign: TextAlign.left),
+          Carousel(),
+          ElevatedButton(
+              onPressed: () {},
+              child: Text("Book Now"),
+              style: ElevatedButton.styleFrom(
+                  fixedSize: Size(300, 40),
+                  primary: Colors.teal,
+                  elevation: 5.0,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0))))
+        ]));
   }
 }
