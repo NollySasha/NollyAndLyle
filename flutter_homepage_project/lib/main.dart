@@ -1,7 +1,8 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
 import 'carousel.dart';
+import 'vaccine_info_guide.dart';
+import 'book_now.dart';
+import 'notifications.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,6 +16,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(primarySwatch: Colors.teal),
+      debugShowCheckedModeBanner: false,
       home: const MyHomePage(),
     );
   }
@@ -28,6 +30,14 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+   late bool isLoggedIn;
+  
+@override
+  void initState() {
+   isLoggedIn = true;
+   super.initState();
+  } 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,9 +45,17 @@ class _MyHomePageState extends State<MyHomePage> {
           actions: [
             Padding(
               padding: const EdgeInsets.only(right: 30),
-              child: IconButton(
-                  onPressed: () {},
-                  icon: Icon(Icons.circle_notifications, size: 40)),
+              child: Visibility(
+                visible: isLoggedIn,
+                child: IconButton(
+                    onPressed: () {
+                      Navigator.push(
+                     context,
+                        MaterialPageRoute(builder: (context) => Notifications()),
+                  );
+                    },
+                    icon: Icon(Icons.circle_notifications, size: 40)),
+              ),
             )
           ],
           title: const Text('Welcome'),
@@ -85,7 +103,12 @@ class _MyHomePageState extends State<MyHomePage> {
                                       textAlign: TextAlign.center),
                                   IconButton(
                                     icon: const Icon(Icons.article, size: 30.0),
-                                    onPressed: () {},
+                                    onPressed: (){
+                                        Navigator.push(
+                                          context,
+                                            MaterialPageRoute(builder: (context) => VaccineInfoGuide()),
+                                      );
+                                    },
                                   )
                                 ],
                               ),
@@ -99,15 +122,24 @@ class _MyHomePageState extends State<MyHomePage> {
           Text("Fun Facts",
               style: TextStyle(fontSize: 15.0), textAlign: TextAlign.left),
           Carousel(),
-          ElevatedButton(
-              onPressed: () {},
-              child: Text("Book Now"),
-              style: ElevatedButton.styleFrom(
-                  fixedSize: Size(300, 40),
-                  primary: Colors.teal,
-                  elevation: 5.0,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15.0))))
+          Visibility(
+            visible: isLoggedIn,
+            child: ElevatedButton(
+                onPressed: () {
+                   Navigator.push(
+                     context,
+                        MaterialPageRoute(builder: (context) => BookNow()),
+                  );
+                },
+                child: Text("Book Now"),
+                style: ElevatedButton.styleFrom(
+                    fixedSize: Size(300, 40),
+                    primary: Colors.teal,
+                    elevation: 5.0,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15.0)))),
+          )
         ]));
-  }
+  } 
+ 
 }
