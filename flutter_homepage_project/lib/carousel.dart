@@ -33,6 +33,7 @@ class _CarouselState extends State<Carousel> {
     return Column(children: <Widget>[
       CarouselSlider(
         options: CarouselOptions(
+            viewportFraction: 1,
             height: 100.0,
             autoPlay: true,
             autoPlayInterval: Duration(seconds: 3),

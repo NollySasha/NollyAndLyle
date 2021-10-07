@@ -3,6 +3,7 @@ import 'carousel.dart';
 import 'vaccine_info_guide.dart';
 import 'book_now.dart';
 import 'notifications.dart';
+import 'secure_storage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -30,13 +31,15 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-   late bool isLoggedIn;
-  
-@override
+  late bool isLoggedIn;
+  late SecureStorage storage;
+
+  @override
   void initState() {
-   isLoggedIn = true;
-   super.initState();
-  } 
+    storage = new SecureStorage();
+    isLoggedIn = storage.isLoggedIn();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,9 +53,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: IconButton(
                     onPressed: () {
                       Navigator.push(
-                     context,
-                        MaterialPageRoute(builder: (context) => Notifications()),
-                  );
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => Notifications()),
+                      );
                     },
                     icon: Icon(Icons.circle_notifications, size: 40)),
               ),
@@ -80,7 +84,7 @@ class _MyHomePageState extends State<MyHomePage> {
             padding: const EdgeInsets.only(left: 10, right: 10),
             child: Container(
               width: 320,
-              height: 100,
+              height: 120,
               child: IntrinsicHeight(
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -103,10 +107,12 @@ class _MyHomePageState extends State<MyHomePage> {
                                       textAlign: TextAlign.center),
                                   IconButton(
                                     icon: const Icon(Icons.article, size: 30.0),
-                                    onPressed: (){
-                                        Navigator.push(
-                                          context,
-                                            MaterialPageRoute(builder: (context) => VaccineInfoGuide()),
+                                    onPressed: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                VaccineInfoGuide()),
                                       );
                                     },
                                   )
@@ -126,9 +132,9 @@ class _MyHomePageState extends State<MyHomePage> {
             visible: isLoggedIn,
             child: ElevatedButton(
                 onPressed: () {
-                   Navigator.push(
-                     context,
-                        MaterialPageRoute(builder: (context) => BookNow()),
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => BookNow()),
                   );
                 },
                 child: Text("Book Now"),
@@ -140,6 +146,5 @@ class _MyHomePageState extends State<MyHomePage> {
                         borderRadius: BorderRadius.circular(15.0)))),
           )
         ]));
-  } 
- 
+  }
 }
