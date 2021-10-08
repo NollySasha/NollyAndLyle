@@ -18,26 +18,27 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(primarySwatch: Colors.teal),
       debugShowCheckedModeBanner: false,
-      home: const MyHomePage(),
+      home: MyHomePage(storage: SecureStorage()),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
+  final SecureStorage? storage;
 
+  const MyHomePage({Key? key, @required this.storage}) : super(key: key);
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  late bool isLoggedIn;
-  late SecureStorage storage;
+  bool isLoggedIn = false;
+  late SecureStorage? _storage;
 
   @override
   void initState() {
-    storage = new SecureStorage();
-    isLoggedIn = storage.isLoggedIn();
+    _storage = widget.storage;
+    isLoggedIn = _storage!.isLoggedIn();
     super.initState();
   }
 

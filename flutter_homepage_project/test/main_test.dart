@@ -16,8 +16,8 @@ void main() {
     final secureStorage = MockSecureStorage();
     when(secureStorage.isLoggedIn()).thenReturn(true);
 
-    MyHomePage widget = new MyHomePage();
-    
+    MyHomePage widget = new MyHomePage(storage: secureStorage);
+
     await tester.pumpWidget(MaterialApp(
       home: Material(child: widget),
     ));
@@ -47,6 +47,35 @@ void main() {
 
   testWidgets('Homepage is rendered correctly when user is not logged in',
       (WidgetTester tester) async {
-    MyHomePage widget = new MyHomePage();
+    final secureStorage = MockSecureStorage();
+    when(secureStorage.isLoggedIn()).thenReturn(false);
+
+    MyHomePage widget = new MyHomePage(storage: secureStorage);
+
+    await tester.pumpWidget(MaterialApp(
+      home: Material(child: widget),
+    ));
+
+    final circleNotificationsIconFinder =
+        find.byIcon(Icons.circle_notifications);
+    final welcomeTextFinder = find.text('Welcome');
+    final howVaccinesWorkTextFinder = find.text('How Vaccines Work');
+    final vaccineInfoGuideTextFinder =
+        find.text('Vaccine \nInformation \nGuide');
+    final imageFinder = find.byType(Image);
+    final articleIconsFinder = find.byIcon(Icons.article);
+    final funcFactsTextFinder = find.text("Fun Facts");
+    final carouselWidgetFinder = find.byType(Carousel);
+    final bookNowButtonFinder = find.byType(ElevatedButton);
+
+    expect(circleNotificationsIconFinder, findsNothing);
+    expect(welcomeTextFinder, findsOneWidget);
+    expect(howVaccinesWorkTextFinder, findsOneWidget);
+    expect(vaccineInfoGuideTextFinder, findsOneWidget);
+    expect(imageFinder, findsNWidgets(2));
+    expect(articleIconsFinder, findsOneWidget);
+    expect(funcFactsTextFinder, findsOneWidget);
+    expect(carouselWidgetFinder, findsOneWidget);
+    expect(bookNowButtonFinder, findsNothing);
   });
 }
