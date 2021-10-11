@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_homepage_project/main.dart';
-import 'package:flutter_homepage_project/carousel.dart';
+import 'package:flutter_homepage_project/widgets/carousel.dart';
+import 'package:flutter_homepage_project/screens/home_page.dart';
 
 import 'package:mockito/annotations.dart';
-import 'package:flutter_homepage_project/secure_storage.dart';
+import 'package:flutter_homepage_project/shared/secure_storage.dart';
 import 'package:mockito/mockito.dart';
 
-import 'main_test.mocks.dart';
+import 'home_page_test.mocks.dart';
 
 @GenerateMocks([SecureStorage])
 void main() {
@@ -16,7 +16,7 @@ void main() {
     final secureStorage = MockSecureStorage();
     when(secureStorage.isLoggedIn()).thenReturn(true);
 
-    MyHomePage widget = new MyHomePage(storage: secureStorage);
+    HomePage widget = new HomePage(storage: secureStorage);
 
     await tester.pumpWidget(MaterialApp(
       home: Material(child: widget),
@@ -50,7 +50,7 @@ void main() {
     final secureStorage = MockSecureStorage();
     when(secureStorage.isLoggedIn()).thenReturn(false);
 
-    MyHomePage widget = new MyHomePage(storage: secureStorage);
+    HomePage widget = new HomePage(storage: secureStorage);
 
     await tester.pumpWidget(MaterialApp(
       home: Material(child: widget),
