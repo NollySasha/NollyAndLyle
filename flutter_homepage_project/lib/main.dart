@@ -67,25 +67,28 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         body: Column(children: <Widget>[
           Container(
-              width: 320,
-              height: 150,
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height / 4,
               child: Card(
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15.0)),
                   child: Image.asset('assets/home.jpg', fit: BoxFit.fitWidth))),
           const Padding(
-            padding: EdgeInsets.only(top: 8.0, bottom: 8.0),
-            child: Text(
-              'How Vaccines Work',
-              style: TextStyle(fontSize: 15.0),
-              textAlign: TextAlign.left,
+            padding: EdgeInsets.only(top: 8.0, bottom: 8.0, left: 45.0),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'How Vaccines Work',
+                style: TextStyle(fontSize: 15.0),
+                textAlign: TextAlign.left,
+              ),
             ),
           ),
           Padding(
             padding: const EdgeInsets.only(left: 10, right: 10),
             child: Container(
-              width: 320,
-              height: 120,
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height / 6,
               child: IntrinsicHeight(
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -93,7 +96,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     Expanded(
                         child: Card(
                             child: Image.asset('assets/play.png',
-                                fit: BoxFit.fitWidth)),
+                                fit: BoxFit.cover)),
                         flex: 7),
                     Expanded(
                         child: Container(
@@ -103,6 +106,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             child: Padding(
                               padding: const EdgeInsets.only(top: 10),
                               child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   const Text('Vaccine \nInformation \nGuide',
                                       textAlign: TextAlign.center),
@@ -126,26 +130,31 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
           ),
-          Text("Fun Facts",
-              style: TextStyle(fontSize: 15.0), textAlign: TextAlign.left),
+          Padding(
+            padding: const EdgeInsets.only(left: 45.0, top: 8.0, bottom: 8.0),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Text("Fun Facts",
+                  style: TextStyle(fontSize: 15.0), textAlign: TextAlign.left),
+            ),
+          ),
           Carousel(),
-          Visibility(
-            visible: isLoggedIn,
-            child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => BookNow()),
-                  );
-                },
-                child: Text("Book Now"),
-                style: ElevatedButton.styleFrom(
-                    fixedSize: Size(300, 40),
-                    primary: Colors.teal,
-                    elevation: 5.0,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15.0)))),
-          )
+          ElevatedButton(
+              onPressed: isLoggedIn 
+              ? () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => BookNow()),
+                    ); 
+                }
+              : null, 
+              child: Text("Book Now"),
+              style: ElevatedButton.styleFrom(
+                  fixedSize: Size(300, 40),
+                  primary: Colors.teal,
+                  elevation: 5.0,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0))))
         ]));
   }
 }
