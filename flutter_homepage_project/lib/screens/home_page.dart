@@ -4,10 +4,13 @@ import 'notifications.dart';
 import 'book_now.dart';
 import '../widgets/carousel.dart';
 import 'vaccine_info_guide.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class HomePage extends StatefulWidget {
   final SecureStorage? storage;
   static const navigateToVaccineInfoGuid = Key('navigateToVaccineInfoGuid');
+  static const navigateToBookNow = Key('navigateToBookNow');
+  static const navigateToNotifications = Key('navigateToNotifications');
   const HomePage({Key? key, @required this.storage}) : super(key: key);
   @override
   State<HomePage> createState() => _HomePageState();
@@ -34,6 +37,7 @@ class _HomePageState extends State<HomePage> {
               child: Visibility(
                 visible: isLoggedIn,
                 child: IconButton(
+                  key: HomePage.navigateToNotifications,
                     onPressed: () {
                       Navigator.push(
                         context,
@@ -123,6 +127,7 @@ class _HomePageState extends State<HomePage> {
           ),
           Carousel(),
           ElevatedButton(
+            key: HomePage.navigateToBookNow,
               onPressed: isLoggedIn
                   ? () {
                       Navigator.push(
