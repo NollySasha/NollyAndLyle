@@ -3,21 +3,21 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 class SecureStorage {
   final storage = new FlutterSecureStorage();
 
-  Future<String?> getToken() async {
-    return await storage.read(key: 'token');
+  Future getValue(String key) async {
+    return await storage.read(key: key);
   }
 
-  void setToken(String token) async {
-    await storage.write(key: 'token', value: token);
+  Future setValue(String key, String value) async {
+    await storage.write(key: key, value: value);
+  }
+
+  Future deleteValue(String key) async {
+    await storage.delete(key: key);
   }
 
   bool isLoggedIn() {
     bool result = false;
-    getToken().then((value) {
-      if (value != null) {
-        result = true;
-      }
-    });
+    getValue('token').then((value) => {if (value != null) result = true});
     return result;
   }
 }

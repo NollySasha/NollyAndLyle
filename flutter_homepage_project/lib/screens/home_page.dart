@@ -7,7 +7,7 @@ import 'vaccine_info_guide.dart';
 
 class HomePage extends StatefulWidget {
   final SecureStorage? storage;
-
+  static const navigateToVaccineInfoGuid = Key('navigateToVaccineInfoGuid');
   const HomePage({Key? key, @required this.storage}) : super(key: key);
   @override
   State<HomePage> createState() => _HomePageState();
@@ -93,6 +93,7 @@ class _HomePageState extends State<HomePage> {
                                   const Text('Vaccine \nInformation \nGuide',
                                       textAlign: TextAlign.center),
                                   IconButton(
+                                    key: HomePage.navigateToVaccineInfoGuid,
                                     icon: const Icon(Icons.article, size: 30.0),
                                     onPressed: () {
                                       Navigator.push(

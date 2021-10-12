@@ -76,6 +76,6 @@ void main() {
     expect(articleIconsFinder, findsOneWidget);
     expect(funcFactsTextFinder, findsOneWidget);
     expect(carouselWidgetFinder, findsOneWidget);
-    expect(bookNowButtonFinder, findsNothing);
+    expect(bookNowButtonFinder, findsOneWidget);
   });
 }
