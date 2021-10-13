@@ -25,7 +25,9 @@ class _HomePageState extends State<HomePage> {
     _storage = widget.storage;
     isLoggedIn = _storage!.isLoggedIn();
     super.initState();
+
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -55,10 +57,7 @@ class _HomePageState extends State<HomePage> {
           Container(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height / 4,
-              child: Card(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15.0)),
-                  child: Image.asset('assets/home.jpg', fit: BoxFit.fitWidth))),
+              child: Carousel()),
           const Padding(
             padding: EdgeInsets.only(top: 8.0, bottom: 8.0, left: 45.0),
             child: Align(
@@ -125,7 +124,6 @@ class _HomePageState extends State<HomePage> {
                   style: TextStyle(fontSize: 15.0), textAlign: TextAlign.left),
             ),
           ),
-          Carousel(),
           ElevatedButton(
             key: HomePage.navigateToBookNow,
               onPressed: isLoggedIn

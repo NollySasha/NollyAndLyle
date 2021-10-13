@@ -13,11 +13,11 @@ class Carousel extends StatefulWidget {
 class _CarouselState extends State<Carousel> {
   int _currentIndex = 0;
 
-  final List<String> cardList = [
-    'Babies start dreaming \neven before they\'re born',
-    'Your eyes never grow \nand your nose and ears \nnever stop growing',
-    'When you blush your stomach \nlining also reddens',
-    'Your lungs inhale over \n2 million litres of air everyday'
+  final List<String> imageList = [
+    'immunizationimage1.jpg',
+    'immunizationimage2.jpg',
+    'immunizationimage3.jpg',
+    'immunizationimage4.jpg'
   ];
 
   List<T> map<T>(List list, Function handler) {
@@ -46,7 +46,7 @@ class _CarouselState extends State<Carousel> {
                 _currentIndex = index;
               });
             }),
-        items: cardList.map((content) {
+        items: imageList.map((content) {
           return Builder(builder: (BuildContext context) {
             return Container(
                 height: MediaQuery.of(context).size.height * 0.30,
@@ -57,7 +57,7 @@ class _CarouselState extends State<Carousel> {
       ),
       Row(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: map<Widget>(cardList, (index, url) {
+        children: map<Widget>(imageList, (index, url) {
           return Container(
             width: 10.0,
             height: 10.0,
@@ -74,18 +74,8 @@ class _CarouselState extends State<Carousel> {
 
   Widget buildCard(String content) {
     Widget card = Card(
-        color: Colors.teal,
-        child: Center(
-            child: Column(children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 5, bottom: 10),
-            child:
-                Text("Did you know ?", style: TextStyle(color: Colors.white70)),
-          ),
-          Text(content,
-              style: TextStyle(color: Colors.white70),
-              textAlign: TextAlign.center)
-        ])));
+        child: Image.asset('assets/'+ content, fit: BoxFit.cover,)
+           );
     return card;
   }
 }
