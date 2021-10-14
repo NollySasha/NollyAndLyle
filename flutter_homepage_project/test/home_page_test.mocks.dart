@@ -2,10 +2,9 @@
 // in flutter_homepage_project/test/home_page_test.dart.
 // Do not manually edit this file.
 
-import 'dart:async' as _i4;
+import 'dart:async' as _i3;
 
-import 'package:flutter_homepage_project/shared/secure_storage.dart' as _i3;
-import 'package:flutter_secure_storage/flutter_secure_storage.dart' as _i2;
+import 'package:flutter_homepage_project/shared/secure_storage.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: avoid_redundant_argument_values
@@ -17,32 +16,30 @@ import 'package:mockito/mockito.dart' as _i1;
 // ignore_for_file: unnecessary_parenthesis
 // ignore_for_file: camel_case_types
 
-class _FakeFlutterSecureStorage_0 extends _i1.Fake
-    implements _i2.FlutterSecureStorage {}
-
 /// A class which mocks [SecureStorage].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockSecureStorage extends _i1.Mock implements _i3.SecureStorage {
+class MockSecureStorage extends _i1.Mock implements _i2.SecureStorage {
   MockSecureStorage() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i2.FlutterSecureStorage get storage => (super.noSuchMethod(
-      Invocation.getter(#storage),
-      returnValue: _FakeFlutterSecureStorage_0()) as _i2.FlutterSecureStorage);
+  _i3.Future<dynamic> setValue(String? key, String? value) =>
+      (super.noSuchMethod(Invocation.method(#setValue, [key, value]),
+          returnValue: Future<dynamic>.value()) as _i3.Future<dynamic>);
   @override
-  _i4.Future<String?> getToken() =>
-      (super.noSuchMethod(Invocation.method(#getToken, []),
-          returnValue: Future<String?>.value()) as _i4.Future<String?>);
+  _i3.Future<dynamic> deleteValue(String? key) =>
+      (super.noSuchMethod(Invocation.method(#deleteValue, [key]),
+          returnValue: Future<dynamic>.value()) as _i3.Future<dynamic>);
   @override
-  void setToken(String? token) =>
-      super.noSuchMethod(Invocation.method(#setToken, [token]),
-          returnValueForMissingStub: null);
+  _i3.Future<String?> getValue(String? key) =>
+      (super.noSuchMethod(Invocation.method(#getValue, [key]),
+          returnValue: Future<String?>.value()) as _i3.Future<String?>);
   @override
-  bool isLoggedIn() => (super.noSuchMethod(Invocation.method(#isLoggedIn, []),
-      returnValue: false) as bool);
+  _i3.Future<bool> isLoggedIn() =>
+      (super.noSuchMethod(Invocation.method(#isLoggedIn, []),
+          returnValue: Future<bool>.value(false)) as _i3.Future<bool>);
   @override
   String toString() => super.toString();
 }

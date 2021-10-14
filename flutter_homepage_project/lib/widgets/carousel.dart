@@ -1,7 +1,7 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 class Carousel extends StatefulWidget {
   const Carousel({Key? key}) : super(key: key);
@@ -12,6 +12,17 @@ class Carousel extends StatefulWidget {
 
 class _CarouselState extends State<Carousel> {
   int _currentIndex = 0;
+
+  Map<String, String> ourMap = {
+    'immunizationimage1.jpg':
+        'Your eyes never grow and your \n nose and ears never stop growing',
+    'immunizationimage2.jpg':
+        'Your lungs inhale over 2 million \n liters of air everyday',
+    'immunizationimage3.jpg':
+        'Babies start dreaming \n even before they are born',
+    'immunizationimage4.jpg':
+        'When you blush your stomach \n lining also reddens'
+  };
 
   final List<String> imageList = [
     'immunizationimage1.jpg',
@@ -32,39 +43,36 @@ class _CarouselState extends State<Carousel> {
   Widget build(BuildContext context) {
     return Column(children: <Widget>[
       CarouselSlider(
-        options: CarouselOptions(
-            viewportFraction: 1,
-            height: MediaQuery.of(context).size.height / 4,
-            autoPlay: true,
-            autoPlayInterval: Duration(seconds: 3),
-            autoPlayAnimationDuration: Duration(milliseconds: 800),
-            autoPlayCurve: Curves.fastOutSlowIn,
-            pauseAutoPlayOnTouch: true,
-            aspectRatio: 2.0,
-            onPageChanged: (index, reason) {
-              setState(() {
-                _currentIndex = index;
-              });
-            }),
-        items: imageList.map((content) {
-          return Builder(builder: (BuildContext context) {
-            return Container(
-                height: MediaQuery.of(context).size.height * 0.30,
-                width: MediaQuery.of(context).size.width,
-                child: buildCard(content));
-          });
-        }).toList(),
-      ),
+          options: CarouselOptions(
+              viewportFraction: 1,
+              height: MediaQuery.of(context).size.height / 2.7,
+              autoPlay: true,
+              autoPlayInterval: Duration(seconds: 3),
+              autoPlayAnimationDuration: Duration(milliseconds: 800),
+              autoPlayCurve: Curves.fastOutSlowIn,
+              pauseAutoPlayOnTouch: true,
+              aspectRatio: 2.0,
+              onPageChanged: (index, reason) {
+                setState(() {
+                  _currentIndex = index;
+                });
+              }),
+          items: ourMap.entries
+              .map((e) => Container(
+                  height: MediaQuery.of(context).size.height / 2.5,
+                  width: MediaQuery.of(context).size.width,
+                  child: buildCard(e)))
+              .toList()),
       Row(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: map<Widget>(imageList, (index, url) {
+        children: map<Widget>(ourMap.entries.toList(), (index, url) {
           return Container(
             width: 10.0,
             height: 10.0,
             margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: _currentIndex == index ? Colors.blueAccent : Colors.grey,
+              color: _currentIndex == index ? HexColor('27B88D') : Colors.grey,
             ),
           );
         }),
@@ -72,10 +80,25 @@ class _CarouselState extends State<Carousel> {
     ]);
   }
 
-  Widget buildCard(String content) {
-    Widget card = Card(
-        child: Image.asset('assets/'+ content, fit: BoxFit.cover,)
-           );
+  Widget buildCard(MapEntry<String, String> entry) {
+    Widget card = Stack(
+      alignment: Alignment.bottomCenter,
+      children: <Widget>[
+        Card(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(15))),
+            child: Image.asset(
+              'assets/' + entry.key,
+              fit: BoxFit.cover,
+            )),
+        Padding(
+            padding: const EdgeInsets.only(bottom: 20),
+            child: Text(entry.value,
+                style:
+                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center))
+      ],
+    );
     return card;
   }
 }

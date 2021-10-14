@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_homepage_project/widgets/carousel.dart';
@@ -14,13 +16,15 @@ void main() {
   testWidgets('Homepage is rendered correctly when user is logged in',
       (WidgetTester tester) async {
     final secureStorage = MockSecureStorage();
-    when(secureStorage.isLoggedIn()).thenReturn(true);
+    when(secureStorage.isLoggedIn()).thenAnswer((_) async => true);
 
     HomePage widget = new HomePage(storage: secureStorage);
 
     await tester.pumpWidget(MaterialApp(
       home: Material(child: widget),
     ));
+
+    await tester.pumpAndSettle();
 
     final circleNotificationsIconFinder =
         find.byIcon(Icons.circle_notifications);
@@ -34,7 +38,6 @@ void main() {
     final carouselWidgetFinder = find.byType(Carousel);
     final bookNowButtonFinder = find.byType(ElevatedButton);
 
-    expect(circleNotificationsIconFinder, findsOneWidget);
     expect(welcomeTextFinder, findsOneWidget);
     expect(howVaccinesWorkTextFinder, findsOneWidget);
     expect(vaccineInfoGuideTextFinder, findsOneWidget);
@@ -43,18 +46,21 @@ void main() {
     expect(funcFactsTextFinder, findsOneWidget);
     expect(carouselWidgetFinder, findsOneWidget);
     expect(bookNowButtonFinder, findsOneWidget);
+    expect(circleNotificationsIconFinder, findsOneWidget);
   });
 
   testWidgets('Homepage is rendered correctly when user is not logged in',
       (WidgetTester tester) async {
     final secureStorage = MockSecureStorage();
-    when(secureStorage.isLoggedIn()).thenReturn(false);
+    when(secureStorage.isLoggedIn()).thenAnswer((_) async => false);
 
     HomePage widget = new HomePage(storage: secureStorage);
 
     await tester.pumpWidget(MaterialApp(
       home: Material(child: widget),
     ));
+
+    await tester.pumpAndSettle();
 
     final circleNotificationsIconFinder =
         find.byIcon(Icons.circle_notifications);

@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_homepage_project/screens/book_now.dart';
 import 'package:flutter_homepage_project/screens/home_page.dart';
@@ -22,12 +20,14 @@ void main() {
 
     Future<void> _buildHomePage(WidgetTester tester) async {
       final secureStorage = MockSecureStorage();
-      when(secureStorage.isLoggedIn()).thenReturn(true);
+      when(secureStorage.isLoggedIn()).thenAnswer((_) async => true);
 
       await tester.pumpWidget(MaterialApp(
         home: HomePage(storage: secureStorage),
         navigatorObservers: [mockObserver],
       ));
+
+      await tester.pumpAndSettle();
     }
 
     Future<void> _navigateToVaccineInfoGuidePage(WidgetTester tester) async {
@@ -54,21 +54,22 @@ void main() {
       expect(find.byType(VaccineInfoGuide), findsOneWidget);
     });
 
-    testWidgets('When tapping "Book Now" button should navigate to BookNow page', 
-    (WidgetTester tester) async {
-    await _buildHomePage(tester);
-    await _navigateToBookNowPage(tester);
+    testWidgets(
+        'When tapping "Book Now" button should navigate to BookNow page',
+        (WidgetTester tester) async {
+      await _buildHomePage(tester);
+      await _navigateToBookNowPage(tester);
 
-    expect(find.byType(BookNow), findsOneWidget);
+      expect(find.byType(BookNow), findsOneWidget);
     });
 
-    testWidgets('When tapping "Notifications" icon should navigate to Notifications page', 
-    (WidgetTester tester) async {
+    testWidgets(
+        'When tapping "Notifications" icon should navigate to Notifications page',
+        (WidgetTester tester) async {
       await _buildHomePage(tester);
       await _navigateToNotificationsPage(tester);
 
       expect(find.byType(Notifications), findsOneWidget);
     });
-
   });
 }
