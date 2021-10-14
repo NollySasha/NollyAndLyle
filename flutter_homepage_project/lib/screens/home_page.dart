@@ -4,7 +4,7 @@ import 'notifications.dart';
 import 'book_now.dart';
 import '../widgets/carousel.dart';
 import 'vaccine_info_guide.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 
 class HomePage extends StatefulWidget {
   final SecureStorage? storage;
@@ -54,6 +54,14 @@ class _HomePageState extends State<HomePage> {
           title: const Text('Welcome'),
         ),
         body: Column(children: <Widget>[
+           Padding(
+            padding: const EdgeInsets.only(left: 45.0, top: 8.0, bottom: 8.0),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Text("Fun Facts",
+                  style: TextStyle(fontSize: 15.0), textAlign: TextAlign.left),
+            ),
+          ),
           Container(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height / 4,
@@ -74,56 +82,46 @@ class _HomePageState extends State<HomePage> {
             child: Container(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height / 6,
-              child: IntrinsicHeight(
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    Expanded(
-                        child: Card(
-                            child: Image.asset('assets/play.png',
-                                fit: BoxFit.cover)),
-                        flex: 7),
-                    Expanded(
-                        child: Container(
-                            decoration: BoxDecoration(
-                                color: Colors.teal.shade100,
-                                borderRadius: BorderRadius.circular(10.0)),
-                            child: Padding(
-                              padding: const EdgeInsets.only(top: 10),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  const Text('Vaccine \nInformation \nGuide',
-                                      textAlign: TextAlign.center),
-                                  IconButton(
-                                    key: HomePage.navigateToVaccineInfoGuid,
-                                    icon: const Icon(Icons.article, size: 30.0),
-                                    onPressed: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                VaccineInfoGuide()),
-                                      );
-                                    },
-                                  )
-                                ],
-                              ),
-                            )),
-                        flex: 4)
-                  ],
-                ),
+              child: Stack(
+                
+                alignment: Alignment.center,
+                children: <Widget>[
+                  Positioned.fill(
+                    child: Image.asset('assets/cover.png',
+                        fit: BoxFit.cover),
+                  ),
+                    Positioned(
+                    child: Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10.0)),
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Text('Vaccine \nInformation \nGuide',
+                                  textAlign: TextAlign.center,style: TextStyle(color: Colors.white),),
+                              IconButton(
+                                key: HomePage.navigateToVaccineInfoGuid,
+                                icon: const Icon(Icons.article, size: 30.0,color: Colors.white,),
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            VaccineInfoGuide()),
+                                  );
+                                },
+                              )
+                            ],
+                          ),
+                        )),
+                  )
+                ],
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 45.0, top: 8.0, bottom: 8.0),
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: Text("Fun Facts",
-                  style: TextStyle(fontSize: 15.0), textAlign: TextAlign.left),
-            ),
-          ),
+         
           ElevatedButton(
             key: HomePage.navigateToBookNow,
               onPressed: isLoggedIn

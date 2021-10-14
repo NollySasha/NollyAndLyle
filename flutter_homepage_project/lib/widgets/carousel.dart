@@ -34,7 +34,7 @@ class _CarouselState extends State<Carousel> {
       CarouselSlider(
         options: CarouselOptions(
             viewportFraction: 1,
-            height: 100.0,
+            height: MediaQuery.of(context).size.height / 4,
             autoPlay: true,
             autoPlayInterval: Duration(seconds: 3),
             autoPlayAnimationDuration: Duration(milliseconds: 800),
