@@ -80,51 +80,51 @@ class _HomePageState extends State<HomePage> {
                 alignment: Alignment.center,
                 children: <Widget>[
                   Positioned.fill(
-                    child: Image.asset('assets/cover.png', fit: BoxFit.cover),
+                    child: ClipRRect(
+                        borderRadius: BorderRadius.circular(15),
+                        child:
+                            Image.asset('assets/cover.png', fit: BoxFit.cover)),
                   ),
                   Positioned(
                     child: Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10.0)),
                         child: Padding(
-                          padding: const EdgeInsets.only(top: 10),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text(
-                                'Vaccine Information Guide \n\n 100 + information on \n immunizations and vaccines',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              IconButton(
-                                key: HomePage.navigateToVaccineInfoGuid,
-                                icon: const Icon(
-                                  Icons.article,
-                                  size: 50.0,
-                                  color: Colors.white,
-                                ),
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            VaccineInfoGuide()),
-                                  );
-                                },
-                              )
-                            ],
+                      padding: const EdgeInsets.only(top: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Vaccine Information Guide \n\n 100 + information on \n immunizations and vaccines',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 17,
+                                fontWeight: FontWeight.bold),
                           ),
-                        )),
+                          IconButton(
+                            key: HomePage.navigateToVaccineInfoGuid,
+                            icon: const Icon(
+                              Icons.article,
+                              size: 50.0,
+                              color: Colors.white,
+                            ),
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => VaccineInfoGuide()),
+                              );
+                            },
+                          )
+                        ],
+                      ),
+                    )),
                   )
                 ],
               ),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 60),
+            padding: const EdgeInsets.only(top: 20),
             child: ElevatedButton(
                 key: HomePage.navigateToBookNow,
                 onPressed: isLoggedIn
@@ -137,11 +137,11 @@ class _HomePageState extends State<HomePage> {
                     : null,
                 child: Text("Book Now", style: TextStyle(color: Colors.white)),
                 style: ElevatedButton.styleFrom(
-                    fixedSize: Size(300, 40),
+                    fixedSize: Size(370, 50),
                     primary: HexColor('27B88D'),
                     elevation: 5.0,
                     shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15.0)))),
+                        borderRadius: BorderRadius.circular(50)))),
           ),
         ]));
   }

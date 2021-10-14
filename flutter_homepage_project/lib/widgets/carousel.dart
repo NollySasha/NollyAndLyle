@@ -24,13 +24,6 @@ class _CarouselState extends State<Carousel> {
         'When you blush your stomach \n lining also reddens'
   };
 
-  final List<String> imageList = [
-    'immunizationimage1.jpg',
-    'immunizationimage2.jpg',
-    'immunizationimage3.jpg',
-    'immunizationimage4.jpg'
-  ];
-
   List<T> map<T>(List list, Function handler) {
     List<T> result = [];
     for (var i = 0; i < list.length; i++) {
@@ -45,7 +38,7 @@ class _CarouselState extends State<Carousel> {
       CarouselSlider(
           options: CarouselOptions(
               viewportFraction: 1,
-              height: MediaQuery.of(context).size.height / 2.7,
+              height: MediaQuery.of(context).size.height / 2.3,
               autoPlay: true,
               autoPlayInterval: Duration(seconds: 3),
               autoPlayAnimationDuration: Duration(milliseconds: 800),
@@ -57,12 +50,7 @@ class _CarouselState extends State<Carousel> {
                   _currentIndex = index;
                 });
               }),
-          items: ourMap.entries
-              .map((e) => Container(
-                  height: MediaQuery.of(context).size.height / 2.5,
-                  width: MediaQuery.of(context).size.width,
-                  child: buildCard(e)))
-              .toList()),
+          items: ourMap.entries.map((e) => buildCard(e)).toList()),
       Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: map<Widget>(ourMap.entries.toList(), (index, url) {
@@ -84,13 +72,20 @@ class _CarouselState extends State<Carousel> {
     Widget card = Stack(
       alignment: Alignment.bottomCenter,
       children: <Widget>[
-        Card(
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(15))),
-            child: Image.asset(
-              'assets/' + entry.key,
-              fit: BoxFit.cover,
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+            height: MediaQuery.of(context).size.height,
+            child: Card(
+                child: ClipRRect(
+              borderRadius: BorderRadius.circular(15),
+              child: Image.asset(
+                'assets/' + entry.key,
+                fit: BoxFit.cover,
+              ),
             )),
+          ),
+        ),
         Padding(
             padding: const EdgeInsets.only(bottom: 20),
             child: Text(entry.value,
