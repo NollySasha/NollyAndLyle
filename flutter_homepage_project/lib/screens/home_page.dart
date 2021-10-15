@@ -55,7 +55,7 @@ class _HomePageState extends State<HomePage> {
           ],
           title: const Text(
             'Welcome',
-            style: TextStyle(color: Colors.black),
+            style: TextStyle(color: Colors.black, fontFamily:'Lato'),
           ),
         ),
         body: Column(children: <Widget>[
@@ -64,7 +64,7 @@ class _HomePageState extends State<HomePage> {
             child: Align(
               alignment: Alignment.centerLeft,
               child: Text("Fun Facts",
-                  style: TextStyle(fontSize: 18), textAlign: TextAlign.left),
+                  style: TextStyle(fontSize: 18, fontFamily: 'Lato'), textAlign: TextAlign.left),
             ),
           ),
           Container(
@@ -98,7 +98,8 @@ class _HomePageState extends State<HomePage> {
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 17,
-                                fontWeight: FontWeight.bold),
+                                fontWeight: FontWeight.bold,
+                                fontFamily: 'Lato'),
                           ),
                           IconButton(
                             key: HomePage.navigateToVaccineInfoGuid,
@@ -135,7 +136,7 @@ class _HomePageState extends State<HomePage> {
                         );
                       }
                     : null,
-                child: Text("Book Now", style: TextStyle(color: Colors.white)),
+                child: Text("Book Now", style: TextStyle(color: Colors.white, fontFamily: 'Lato')),
                 style: ElevatedButton.styleFrom(
                     fixedSize: Size(370, 50),
                     primary: HexColor('27B88D'),

@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        theme: ThemeData(primarySwatch: Colors.teal),
+        theme: ThemeData(fontFamily:'Lato', primarySwatch: Colors.teal),
         debugShowCheckedModeBanner: false,
         initialRoute: '/',
         routes: {'/': (context) => HomePage(storage: SecureStorage())});
