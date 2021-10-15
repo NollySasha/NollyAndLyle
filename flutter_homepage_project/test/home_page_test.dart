@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_homepage_project/widgets/carousel.dart';
@@ -29,9 +27,8 @@ void main() {
     final circleNotificationsIconFinder =
         find.byIcon(Icons.circle_notifications);
     final welcomeTextFinder = find.text('Welcome');
-    final howVaccinesWorkTextFinder = find.text('How Vaccines Work');
-    final vaccineInfoGuideTextFinder =
-        find.text('Vaccine \nInformation \nGuide');
+    final vaccineInfoGuideTextFinder = find.text(
+        'Vaccine Information Guide \n\n 100 + information on \n immunizations and vaccines');
     final imageFinder = find.byType(Image);
     final articleIconsFinder = find.byIcon(Icons.article);
     final funcFactsTextFinder = find.text("Fun Facts");
@@ -39,7 +36,7 @@ void main() {
     final bookNowButtonFinder = find.byType(ElevatedButton);
 
     expect(welcomeTextFinder, findsOneWidget);
-    expect(howVaccinesWorkTextFinder, findsOneWidget);
+
     expect(vaccineInfoGuideTextFinder, findsOneWidget);
     expect(imageFinder, findsNWidgets(2));
     expect(articleIconsFinder, findsOneWidget);
@@ -65,9 +62,8 @@ void main() {
     final circleNotificationsIconFinder =
         find.byIcon(Icons.circle_notifications);
     final welcomeTextFinder = find.text('Welcome');
-    final howVaccinesWorkTextFinder = find.text('How Vaccines Work');
-    final vaccineInfoGuideTextFinder =
-        find.text('Vaccine \nInformation \nGuide');
+    final vaccineInfoGuideTextFinder = find.text(
+        'Vaccine Information Guide \n\n 100 + information on \n immunizations and vaccines');
     final imageFinder = find.byType(Image);
     final articleIconsFinder = find.byIcon(Icons.article);
     final funcFactsTextFinder = find.text("Fun Facts");
@@ -76,7 +72,6 @@ void main() {
 
     expect(circleNotificationsIconFinder, findsNothing);
     expect(welcomeTextFinder, findsOneWidget);
-    expect(howVaccinesWorkTextFinder, findsOneWidget);
     expect(vaccineInfoGuideTextFinder, findsOneWidget);
     expect(imageFinder, findsNWidgets(2));
     expect(articleIconsFinder, findsOneWidget);
