@@ -1,30 +1,26 @@
 import 'package:flutter/material.dart';
-import '../shared/secure_storage.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_homepage_project/bloc/auth_bloc.dart';
+import 'package:flutter_homepage_project/bloc/auth_state.dart';
+import 'package:flutter_homepage_project/screens/vaccine_info_guide.dart';
 import 'notifications.dart';
 import 'book_now.dart';
 import '../widgets/carousel.dart';
-import 'vaccine_info_guide.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class HomePage extends StatefulWidget {
-  final SecureStorage? storage;
   static const navigateToVaccineInfoGuid = Key('navigateToVaccineInfoGuid');
   static const navigateToBookNow = Key('navigateToBookNow');
   static const navigateToNotifications = Key('navigateToNotifications');
 
-  const HomePage({Key? key, @required this.storage}) : super(key: key);
+  const HomePage({Key? key}) : super(key: key);
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  bool isLoggedIn = false;
-  late SecureStorage? _storage;
-
   @override
   void initState() {
-    _storage = widget.storage;
-    setLoginStatus();
     super.initState();
   }
 
@@ -36,22 +32,25 @@ class _HomePageState extends State<HomePage> {
           shadowColor: Colors.transparent,
           actions: [
             Padding(
-              padding: const EdgeInsets.only(right: 30),
-              child: Visibility(
-                visible: isLoggedIn,
-                child: IconButton(
-                    key: HomePage.navigateToNotifications,
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => Notifications()),
+                padding: const EdgeInsets.only(right: 30),
+                child: BlocConsumer<AuthBloc, AuthState>(
+                    listener: (context, state) {},
+                    builder: (context, state) {
+                      return Visibility(
+                        visible: state is LoggedIn ? true : false,
+                        child: IconButton(
+                            key: HomePage.navigateToNotifications,
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Notifications()),
+                              );
+                            },
+                            icon: Icon(Icons.circle_notifications,
+                                size: 50, color: HexColor('27B88D'))),
                       );
-                    },
-                    icon: Icon(Icons.circle_notifications,
-                        size: 50, color: HexColor('27B88D'))),
-              ),
-            )
+                    }))
           ],
           title: const Text(
             'Welcome',
@@ -124,32 +123,31 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 20),
-            child: ElevatedButton(
-                key: HomePage.navigateToBookNow,
-                onPressed: isLoggedIn
-                    ? () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => BookNow()),
-                        );
-                      }
-                    : null,
-                child: Text("Book Now", style: TextStyle(color: Colors.white)),
-                style: ElevatedButton.styleFrom(
-                    fixedSize: Size(370, 50),
-                    primary: HexColor('27B88D'),
-                    elevation: 5.0,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(50)))),
-          ),
+              padding: const EdgeInsets.only(top: 20),
+              child: BlocConsumer<AuthBloc, AuthState>(
+                listener: (context, state) {},
+                builder: (context, state) {
+                  return ElevatedButton(
+                      key: HomePage.navigateToBookNow,
+                      onPressed: state is LoggedIn
+                          ? () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => BookNow()),
+                              );
+                            }
+                          : null,
+                      child: Text("Book Now",
+                          style: TextStyle(color: Colors.white)),
+                      style: ElevatedButton.styleFrom(
+                          fixedSize: Size(370, 50),
+                          primary: HexColor('27B88D'),
+                          elevation: 5.0,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(50))));
+                },
+              )),
         ]));
-  }
-
-  void setLoginStatus() async {
-    bool result = await _storage!.isLoggedIn();
-    setState(() {
-      isLoggedIn = result;
-    });
   }
 }

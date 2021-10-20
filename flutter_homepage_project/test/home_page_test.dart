@@ -1,37 +1,47 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_homepage_project/bloc/auth_bloc.dart';
+import 'package:flutter_homepage_project/bloc/auth_event.dart';
+import 'package:flutter_homepage_project/bloc/auth_state.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_homepage_project/widgets/carousel.dart';
 import 'package:flutter_homepage_project/screens/home_page.dart';
 
-import 'package:mockito/annotations.dart';
-import 'package:flutter_homepage_project/shared/secure_storage.dart';
-import 'package:mockito/mockito.dart';
+import 'package:bloc_test/bloc_test.dart';
+import 'package:mocktail/mocktail.dart';
 
-import 'home_page_test.mocks.dart';
+class MockAuthBloc extends MockBloc<AuthEvent, AuthState> implements AuthBloc {}
 
-@GenerateMocks([SecureStorage])
+class AuthStateFake extends Fake implements AuthState {}
+
+class AuthEventFake extends Fake implements AuthEvent {}
+
 void main() {
+  setUpAll(() {
+    registerFallbackValue<AuthState>(AuthStateFake());
+    registerFallbackValue<AuthEvent>(AuthEventFake());
+  });
+
   testWidgets('Homepage is rendered correctly when user is logged in',
       (WidgetTester tester) async {
-    final secureStorage = MockSecureStorage();
-    when(secureStorage.isLoggedIn()).thenAnswer((_) async => true);
+    final mock = new MockAuthBloc();
+    when(() => mock.state).thenReturn(LoggedIn());
 
-    HomePage widget = new HomePage(storage: secureStorage);
+    HomePage widget = new HomePage();
 
-    await tester.pumpWidget(MaterialApp(
-      home: Material(child: widget),
-    ));
+    await tester.pumpWidget(BlocProvider<AuthBloc>(
+        create: (context) => mock,
+        child: MaterialApp(
+          home: Material(child: widget),
+        )));
 
     await tester.pumpAndSettle();
 
     final circleNotificationsIconFinder =
         find.byIcon(Icons.circle_notifications);
     final welcomeTextFinder = find.text('Welcome');
-    final howVaccinesWorkTextFinder = find.text('How Vaccines Work');
-    final vaccineInfoGuideTextFinder =
-        find.text('Vaccine \nInformation \nGuide');
+    final vaccineInfoGuideTextFinder = find.text(
+        'Vaccine Information Guide \n\n 100 + information on \n immunizations and vaccines');
     final imageFinder = find.byType(Image);
     final articleIconsFinder = find.byIcon(Icons.article);
     final funcFactsTextFinder = find.text("Fun Facts");
@@ -39,7 +49,7 @@ void main() {
     final bookNowButtonFinder = find.byType(ElevatedButton);
 
     expect(welcomeTextFinder, findsOneWidget);
-    expect(howVaccinesWorkTextFinder, findsOneWidget);
+
     expect(vaccineInfoGuideTextFinder, findsOneWidget);
     expect(imageFinder, findsNWidgets(2));
     expect(articleIconsFinder, findsOneWidget);
@@ -51,23 +61,24 @@ void main() {
 
   testWidgets('Homepage is rendered correctly when user is not logged in',
       (WidgetTester tester) async {
-    final secureStorage = MockSecureStorage();
-    when(secureStorage.isLoggedIn()).thenAnswer((_) async => false);
+    final mock = new MockAuthBloc();
+    when(() => mock.state).thenReturn(NotLoggedIn());
 
-    HomePage widget = new HomePage(storage: secureStorage);
+    HomePage widget = new HomePage();
 
-    await tester.pumpWidget(MaterialApp(
-      home: Material(child: widget),
-    ));
+    await tester.pumpWidget(BlocProvider<AuthBloc>(
+        create: (context) => mock,
+        child: MaterialApp(
+          home: Material(child: widget),
+        )));
 
     await tester.pumpAndSettle();
 
     final circleNotificationsIconFinder =
         find.byIcon(Icons.circle_notifications);
     final welcomeTextFinder = find.text('Welcome');
-    final howVaccinesWorkTextFinder = find.text('How Vaccines Work');
-    final vaccineInfoGuideTextFinder =
-        find.text('Vaccine \nInformation \nGuide');
+    final vaccineInfoGuideTextFinder = find.text(
+        'Vaccine Information Guide \n\n 100 + information on \n immunizations and vaccines');
     final imageFinder = find.byType(Image);
     final articleIconsFinder = find.byIcon(Icons.article);
     final funcFactsTextFinder = find.text("Fun Facts");
@@ -76,7 +87,6 @@ void main() {
 
     expect(circleNotificationsIconFinder, findsNothing);
     expect(welcomeTextFinder, findsOneWidget);
-    expect(howVaccinesWorkTextFinder, findsOneWidget);
     expect(vaccineInfoGuideTextFinder, findsOneWidget);
     expect(imageFinder, findsNWidgets(2));
     expect(articleIconsFinder, findsOneWidget);

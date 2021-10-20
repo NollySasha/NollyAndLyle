@@ -1,31 +1,45 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_homepage_project/screens/book_now.dart';
 import 'package:flutter_homepage_project/screens/home_page.dart';
 import 'package:flutter_homepage_project/screens/notifications.dart';
 import 'package:flutter_homepage_project/screens/vaccine_info_guide.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
-import 'package:mockito/src/mock.dart';
-import 'home_page_test.mocks.dart';
+import 'package:mocktail/mocktail.dart';
+import 'package:flutter_homepage_project/bloc/auth_bloc.dart';
+import 'package:flutter_homepage_project/bloc/auth_event.dart';
+import 'package:flutter_homepage_project/bloc/auth_state.dart';
+
+import 'package:bloc_test/bloc_test.dart';
 
 class MockNavigationObserver extends Mock implements NavigatorObserver {}
+
+class MockAuthBloc extends MockBloc<AuthEvent, AuthState> implements AuthBloc {}
+
+class AuthStateFake extends Fake implements AuthState {}
+
+class AuthEventFake extends Fake implements AuthEvent {}
 
 void main() {
   group('HomePage navigation tests', () {
     late NavigatorObserver mockObserver;
 
-    setUp(() {
+    setUpAll(() {
       mockObserver = MockNavigationObserver();
+      registerFallbackValue<AuthState>(AuthStateFake());
+      registerFallbackValue<AuthEvent>(AuthEventFake());
     });
 
     Future<void> _buildHomePage(WidgetTester tester) async {
-      final secureStorage = MockSecureStorage();
-      when(secureStorage.isLoggedIn()).thenAnswer((_) async => true);
+      final mock = new MockAuthBloc();
+      when(() => mock.state).thenReturn(LoggedIn());
 
-      await tester.pumpWidget(MaterialApp(
-        home: HomePage(storage: secureStorage),
-        navigatorObservers: [mockObserver],
-      ));
+      await tester.pumpWidget(BlocProvider<AuthBloc>(
+          create: (context) => mock,
+          child: MaterialApp(
+            home: HomePage(),
+            navigatorObservers: [mockObserver],
+          )));
 
       await tester.pumpAndSettle();
     }

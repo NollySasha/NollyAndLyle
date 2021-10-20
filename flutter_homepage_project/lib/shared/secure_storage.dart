@@ -14,11 +14,4 @@ class SecureStorage {
   Future<String?> getValue(String key) async {
     return await storage.read(key: key);
   }
-
-  Future<bool> isLoggedIn() async {
-    bool result = false;
-    var token = await getValue('token');
-    if (token != null) result = true;
-    return result;
-  }
 }
