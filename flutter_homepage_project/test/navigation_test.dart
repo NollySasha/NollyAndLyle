@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_homepage_project/screens/book_now.dart';
-import 'package:flutter_homepage_project/screens/home_page.dart';
-import 'package:flutter_homepage_project/screens/notifications.dart';
-import 'package:flutter_homepage_project/screens/vaccine_info_guide.dart';
+import 'package:flutter_homepage_project/feature/home_page/presentaion/bloc/auth_bloc.dart';
+import 'package:flutter_homepage_project/feature/home_page/presentaion/bloc/auth_event.dart';
+import 'package:flutter_homepage_project/feature/home_page/presentaion/bloc/auth_state.dart';
+import 'package:flutter_homepage_project/feature/home_page/presentaion/pages/home_page.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:flutter_homepage_project/bloc/auth_bloc.dart';
-import 'package:flutter_homepage_project/bloc/auth_event.dart';
-import 'package:flutter_homepage_project/bloc/auth_state.dart';
-
+import 'package:flutter/src/material/flutter_logo.dart';
 import 'package:bloc_test/bloc_test.dart';
 
 class MockNavigationObserver extends Mock implements NavigatorObserver {}
@@ -65,7 +62,7 @@ void main() {
       await _buildHomePage(tester);
       await _navigateToVaccineInfoGuidePage(tester);
 
-      expect(find.byType(VaccineInfoGuide), findsOneWidget);
+      expect(find.byType(FlutterLogo), findsOneWidget);
     });
 
     testWidgets(
@@ -74,7 +71,7 @@ void main() {
       await _buildHomePage(tester);
       await _navigateToBookNowPage(tester);
 
-      expect(find.byType(BookNow), findsOneWidget);
+      expect(find.byType(FlutterLogo), findsOneWidget);
     });
 
     testWidgets(
@@ -83,7 +80,7 @@ void main() {
       await _buildHomePage(tester);
       await _navigateToNotificationsPage(tester);
 
-      expect(find.byType(Notifications), findsOneWidget);
+      expect(find.byType(FlutterLogo), findsOneWidget);
     });
   });
 }

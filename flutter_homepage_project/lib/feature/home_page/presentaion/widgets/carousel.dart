@@ -40,8 +40,8 @@ class _CarouselState extends State<Carousel> {
               viewportFraction: 1,
               height: MediaQuery.of(context).size.height / 2.3,
               autoPlay: true,
-              autoPlayInterval: Duration(seconds: 3),
-              autoPlayAnimationDuration: Duration(milliseconds: 800),
+              autoPlayInterval: const Duration(seconds: 3),
+              autoPlayAnimationDuration: const Duration(milliseconds: 800),
               autoPlayCurve: Curves.fastOutSlowIn,
               pauseAutoPlayOnTouch: true,
               aspectRatio: 2.0,
@@ -57,7 +57,7 @@ class _CarouselState extends State<Carousel> {
           return Container(
             width: 10.0,
             height: 10.0,
-            margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
+            margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               color: _currentIndex == index ? HexColor('27B88D') : Colors.grey,
@@ -74,23 +74,22 @@ class _CarouselState extends State<Carousel> {
       children: <Widget>[
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Container(
+          child: SizedBox(
             height: MediaQuery.of(context).size.height,
-            child: Card(
-                child: ClipRRect(
+            child: ClipRRect(
               borderRadius: BorderRadius.circular(15),
               child: Image.asset(
-                'assets/' + entry.key,
+                '/' + entry.key,
                 fit: BoxFit.cover,
               ),
-            )),
+            ),
           ),
         ),
         Padding(
             padding: const EdgeInsets.only(bottom: 20),
             child: Text(entry.value,
-                style:
-                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                style: const TextStyle(
+                    color: Colors.white, fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center))
       ],
     );

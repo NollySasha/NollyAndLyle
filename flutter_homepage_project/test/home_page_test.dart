@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_homepage_project/bloc/auth_bloc.dart';
-import 'package:flutter_homepage_project/bloc/auth_event.dart';
-import 'package:flutter_homepage_project/bloc/auth_state.dart';
+import 'package:flutter_homepage_project/feature/home_page/presentaion/bloc/auth_bloc.dart';
+import 'package:flutter_homepage_project/feature/home_page/presentaion/bloc/auth_event.dart';
+import 'package:flutter_homepage_project/feature/home_page/presentaion/bloc/auth_state.dart';
+import 'package:flutter_homepage_project/feature/home_page/presentaion/pages/home_page.dart';
+import 'package:flutter_homepage_project/feature/home_page/presentaion/widgets/carousel.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_homepage_project/widgets/carousel.dart';
-import 'package:flutter_homepage_project/screens/home_page.dart';
 
 import 'package:bloc_test/bloc_test.dart';
 import 'package:mocktail/mocktail.dart';

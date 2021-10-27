@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_homepage_project/bloc/auth_bloc.dart';
-import 'package:flutter_homepage_project/bloc/auth_state.dart';
-import 'package:flutter_homepage_project/screens/vaccine_info_guide.dart';
-import 'notifications.dart';
-import 'book_now.dart';
+import '../bloc/auth_bloc.dart';
+import '../bloc/auth_state.dart';
 import '../widgets/carousel.dart';
 import 'package:hexcolor/hexcolor.dart';
 
@@ -28,7 +25,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.white,
+          backgroundColor: Colors.transparent,
           shadowColor: Colors.transparent,
           actions: [
             Padding(
@@ -44,7 +41,7 @@ class _HomePageState extends State<HomePage> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => Notifications()),
+                                    builder: (context) => const FlutterLogo()),
                               );
                             },
                             icon: Icon(Icons.circle_notifications,
@@ -58,67 +55,66 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
         body: Column(children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.only(left: 20, top: 8.0, bottom: 0),
+          const Padding(
+            padding: EdgeInsets.only(left: 20, top: 8.0, bottom: 0),
             child: Align(
               alignment: Alignment.centerLeft,
               child: Text("Fun Facts",
                   style: TextStyle(fontSize: 18), textAlign: TextAlign.left),
             ),
           ),
-          Container(
+          SizedBox(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height / 2,
-              child: Carousel()),
+              child: const Carousel()),
           Padding(
             padding: const EdgeInsets.only(left: 10, right: 10),
-            child: Container(
+            child: SizedBox(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height / 6,
-              child: Stack(
-                alignment: Alignment.center,
-                children: <Widget>[
-                  Positioned.fill(
-                    child: ClipRRect(
-                        borderRadius: BorderRadius.circular(15),
-                        child:
-                            Image.asset('assets/cover.png', fit: BoxFit.cover)),
-                  ),
-                  Positioned(
-                    child: Container(
-                        child: Padding(
-                      padding: const EdgeInsets.only(top: 10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Vaccine Information Guide \n\n 100 + information on \n immunizations and vaccines',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 17,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          IconButton(
-                            key: HomePage.navigateToVaccineInfoGuid,
-                            icon: const Icon(
-                              Icons.article,
-                              size: 50.0,
-                              color: Colors.white,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(15),
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: <Widget>[
+                    Positioned.fill(
+                      child: Image.asset('/cover.png', fit: BoxFit.cover),
+                    ),
+                    Positioned(
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            const Text(
+                              'Vaccine Information Guide \n\n 100 + information on \n immunizations and vaccines',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.bold),
                             ),
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => VaccineInfoGuide()),
-                              );
-                            },
-                          )
-                        ],
+                            IconButton(
+                              key: HomePage.navigateToVaccineInfoGuid,
+                              icon: const Icon(
+                                Icons.article,
+                                size: 50.0,
+                                color: Colors.white,
+                              ),
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => FlutterLogo()),
+                                );
+                              },
+                            )
+                          ],
+                        ),
                       ),
-                    )),
-                  )
-                ],
+                    )
+                  ],
+                ),
               ),
             ),
           ),
@@ -134,14 +130,14 @@ class _HomePageState extends State<HomePage> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => BookNow()),
+                                    builder: (context) => const FlutterLogo()),
                               );
                             }
                           : null,
-                      child: Text("Book Now",
+                      child: const Text("Book Now",
                           style: TextStyle(color: Colors.white)),
                       style: ElevatedButton.styleFrom(
-                          fixedSize: Size(370, 50),
+                          fixedSize: const Size(370, 50),
                           primary: HexColor('27B88D'),
                           elevation: 5.0,
                           shape: RoundedRectangleBorder(

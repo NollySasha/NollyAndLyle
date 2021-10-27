@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_homepage_project/bloc/auth_bloc.dart';
-import 'package:flutter_homepage_project/bloc/auth_state.dart';
-import 'screens/home_page.dart';
+import 'package:flutter_homepage_project/feature/home_page/presentaion/bloc/auth_bloc.dart';
+import 'package:flutter_homepage_project/feature/home_page/presentaion/bloc/auth_state.dart';
+import 'package:flutter_homepage_project/feature/home_page/presentaion/pages/home_page.dart';
 
 void main() {
   runApp(const MyApp());
